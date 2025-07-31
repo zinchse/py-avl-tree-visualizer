@@ -1,66 +1,94 @@
-# AVLTree (Python 3)
-AVLTree implementation with pretty print and built-in k-th find
+AVLTree implementation with pretty print and built-in search for k-th element
+---
 
-## Why did I do it
+To my surprise, I couldn't find on the Internet any implementation of AVLTree with a nice tree visualization. So I've decided to do it (and support of k-th statistics) myself. I used as a base the following [implementation](https://github.com/pgrafov/python-avl-tree/blob/master/pyavltree.py). Also for a complete understanding of all rotations and other operations, I advise reader to become familiar with the following [article](https://www.geeksforgeeks.org/avl-tree-set-1-insertion/).
 
-
-AVL tree is one of the most powerful yet simple data structures. To my surprise, I did not find on the Internet any implementation of this structure with a nice tree visualization.
-So I decided to do it myself. Besides, he immediately began to support the subtree size parameter for each nodes and implemented, on the basis of this, the search for k-th statistics on the tree.
-
-I based on the following [implementation](https://github.com/pgrafov/python-avl-tree/blob/master/pyavltree.py).
-Also for a complete understanding of all rotations and other operations, I advise you to read the following [article](https://www.geeksforgeeks.org/avl-tree-set-1-insertion/).
-
-## Overview
-
-The AVL tree is a special case of a search tree that maintains some invariant related to the heights of the children. 
-This allows you to maintain the speed of inserting and deleting an element of the order of the logarithm of the number of vertices in the tree.
-
-
-## Interface examples
-
-### Print
-
+# 📦 Installation
+```bash
+git clone https://github.com/zinchse/AVLTree/tree/main
+cd AVLTree
+pip install sortedcontainers
+python3 test.py
 ```
-        >>> tree = AVLTree([1,2,3,4,5,6])
-        >>> print(tree)
-                4       
-               / \        
-              /   \       
-             /     \      
-            2       5   
-           / \       \      
-          1   3       6
+
+# 🧩 Interface
+
+## Basics
+```python3
+>>> from AVLTree import AVLTree
+>>> tree = AVLTree([1,2,3,5,6])
+>>> print(tree)
+        2       
+       / \        
+      /   \       
+     /     \      
+    1       5   
+           / \      
+          3   6 
+
+>>> tree.insert(4)
+>>> print(tree)
+        3       
+       / \        
+      /   \       
+     /     \      
+    2       5   
+   /       / \      
+  1       4   6 
+
+>>> tree.remove(3)
+>>> print(tree)
+        4       
+       / \        
+      /   \       
+     /     \      
+    2       5   
+   /         \      
+  1           6 
 ```        
 
-### Remove
-```        
-        >>> tree = AVLTree([1,2,3,4,5,6])
-        >>> tree.remove(3)
-        >>> print(tree)   
-                4       
-               / \        
-              /   \       
-             /     \      
-            2       5   
-           /         \      
-          1           6         
+## Search
+```python3
+>>> print(tree)
+        4       
+       / \        
+      /   \       
+     /     \      
+    2       5   
+   /         \      
+  1           6 
+>>> print(tree.findkth(2), type(tree.findkth(2)))
+2 <class 'Node.Node'>
+>>> print(tree.find(4), type(tree.findkth(4)))
+4 <class 'Node.Node'>
+>>> print(tree.find(-1), type(tree.find(-1)))
+None <class 'NoneType'>       
 ```                
-### k-th find        
-```               
-        >>> tree = AVLTree([1,2,3,4,5,6])
-        >>> tree.findkth(2) 
-         2
-        >>> tree.findkth(2,tree.rootNode.rightChild)
-         6  
+
+## Traversal
+```python3
+>>> print(tree)
+        4       
+       / \        
+      /   \       
+     /     \      
+    2       5   
+   /         \      
+  1           6 
+>>> # traversal_type: 0=preorder, 1=inorder, 2=postorder
+>>> print(tree.as_list(traversal_type=0))
+[4, 2, 1, 5, 6]
+>>> print(tree.as_list(traversal_type=1))
+[1, 2, 4, 5, 6]
+>>> print(tree.as_list(traversal_type=2))
+[1, 2, 6, 5, 4]
 ```        
 
-## File structure
+# 🗂️ File structure
 
 ```
-+-- AVLTree.py/ contains an implementation of the class avl tree based on the node
 +-- Node.py/ contains node implementation
-+-- test.py/ simple check of work of search of ku statistics and maintenance of height of the order of a logarithm
++-- AVLTree.py/ contains an implementation of the AVLTree class based on the Node
++-- test.py/ is simple check of work of search of kth statistics 
+and maintenance of height of the order of a logarithm
 ```
-**If it helps you** or you just find it funny, please upvote a star
-
-Good luck!
