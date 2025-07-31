@@ -1,6 +1,5 @@
-AVLTree implementation with pretty print and built-in search for k-th element
+AVL Tree implementation with pretty visualization and built-in search for k-th element
 ---
-
 To my surprise, I couldn't find on the Internet any implementation of AVLTree with a nice tree visualization. So I've decided to do it (and support of k-th statistics) myself. I used as a base the following [implementation](https://github.com/pgrafov/python-avl-tree/blob/master/pyavltree.py). Also for a complete understanding of all rotations and other operations, I advise reader to become familiar with the following [article](https://www.geeksforgeeks.org/avl-tree-set-1-insertion/).
 
 # 📦 Installation
@@ -87,8 +86,7 @@ None <class 'NoneType'>
 # 🗂️ File structure
 
 ```
-+-- Node.py/ contains node implementation
-+-- AVLTree.py/ contains an implementation of the AVLTree class based on the Node
-+-- test.py/ is simple check of work of search of kth statistics 
-and maintenance of height of the order of a logarithm
++-- Node.py/ - defines the Node class (key, child/parent pointers, height & subtree size)
++-- AVLTree.py/ - implements the AVLTree API (insert, delete, search, k-th element, pretty-print)
++-- test.py/ - basic verification of k-th-smallest lookup and logarithmic height maintenance
 ```
