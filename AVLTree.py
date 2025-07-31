@@ -381,7 +381,7 @@ class AVLTree:
             return self.findkth(k, root.leftChild)
 
         elif leftsize == k - 1:
-            return root.key
+            return root
         else:
             return self.findkth(k - leftsize - 1, root.rightChild)
 
