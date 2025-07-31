@@ -20,7 +20,7 @@ def test_kth(length: "int" = 10_000, n_removals: "int" = 1_000, max_int: "int" =
     tree = AVLTree(lst)
 
     for k in range(1, len(lst) + 1):
-        assert tree.findkth(k) == lst[k - 1], f"Wrong {k}-th statistics (before removals)!"
+        assert tree.findkth(k).key == lst[k - 1], f"Wrong {k}-th statistics (before removals)!"
 
     for _ in range(n_removals):
         x = random.randint(1, max_int)
@@ -28,7 +28,7 @@ def test_kth(length: "int" = 10_000, n_removals: "int" = 1_000, max_int: "int" =
         tree.remove(x)
 
     for k in range(1, len(lst) + 1):
-        assert tree.findkth(k) == lst[k - 1], f"Wrong {k}-th statistic (after removals)!"
+        assert tree.findkth(k).key == lst[k - 1], f"Wrong {k}-th statistic (after removals)!"
 
 
 def test_treesize(length: "int" = 1_000_000) -> "None":
