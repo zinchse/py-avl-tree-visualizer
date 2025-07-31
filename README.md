@@ -5,7 +5,7 @@ To my surprise, I couldn't find on the Internet any implementation of AVLTree wi
 
 # 📦 Installation
 ```bash
-git clone https://github.com/zinchse/AVLTree/tree/main
+git clone https://github.com/zinchse/AVLTree
 cd AVLTree
 pip install sortedcontainers
 python3 test.py
@@ -13,7 +13,7 @@ python3 test.py
 
 # 🧩 Interface
 
-## Basics
+## 1. Basics
 ```python3
 >>> from AVLTree import AVLTree
 >>> tree = AVLTree([1,2,3,5,6])
@@ -47,7 +47,7 @@ python3 test.py
   1           6 
 ```        
 
-## Search
+## 2. Search
 ```python3
 >>> print(tree)
         4       
@@ -65,7 +65,7 @@ python3 test.py
 None <class 'NoneType'>       
 ```                
 
-## Traversal
+## 3. Traversal
 ```python3
 >>> print(tree)
         4       
