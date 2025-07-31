@@ -1,52 +1,45 @@
-#import random, math
+import random, math
+from typing import List
+from sortedcollections import SortedList
+from AVLTree import AVLTree
 
 
-def random_list_generator(len):
+def random_unique_list(length: "int") -> "List[int]":
+    seen = set()
     res = []
-    for i in range(len):
-        x = random.randint(1, len)
-        if x not in res:
+    for i in range(length):
+        x = random.randint(1, length)
+        if x not in seen:
             res.append(x)
+            seen.add(x)
     return res
-  
-  
-def random_data_generator(len):
-  for i in range(len):
-      yield random.randint(1, len)
-        
-        
-def testkth(l=10000, p = 1000, q =10000):
-    lst = random_list_generator(l)
-    c = AVLTree(lst)
-    lst.sort()
-    
-    # Let's test kth after some appends
-    for i in range(1,len(lst)+1):
-        assert c.findkth(i)==lst[i-1], f'wrong {i}-th answer!'
-    
-    # Let's do some removes
-    for k in range(p):
-        x = random.randint(1,q)
-        if not x in lst:
-            continue
-        else:
-            lst.remove(x)
-            c.remove(x)  
-            
-    # Let's test kth after some removes
-    lst.sort()
-    for i in range(1,len(lst)+1):
-        assert c.findkth(i)==lst[i-1], f'wrong {i}-th answer!'         
-        
-        
-def testsize(l=1000000):
+
+
+def test_kth(length: "int" = 10_000, n_removals: "int" = 1_000, max_int: "int" = 10_000) -> "None":
+    lst = SortedList(random_unique_list(length))
+    tree = AVLTree(lst)
+
+    for k in range(1, len(lst) + 1):
+        assert tree.findkth(k) == lst[k - 1], f"Wrong {k}-th statistics (before removals)!"
+
+    for _ in range(n_removals):
+        x = random.randint(1, max_int)
+        lst.discard(x)
+        tree.remove(x)
+
+    for k in range(1, len(lst) + 1):
+        assert tree.findkth(k) == lst[k - 1], f"Wrong {k}-th statistic (after removals)!"
+
+
+def test_treesize(length: "int" = 1_000_000) -> "None":
     tree = AVLTree()
-    for val in random_data_generator(l):
-        tree.insert(val)
-    assert (tree.height() < 1.44 * math.log(l+2, 2) - 1)
-    return tree.elements_count, tree.height()
-  
-  
-if __name__ == "__main__": 
-    testkth()
-    testsize()    
+    for x in random_unique_list(length):
+        tree.insert(x)
+    assert tree.height() < 1.44 * math.log(length + 2, 2) - 1, f"Height is too big!"
+
+
+if __name__ == "__main__":
+    test_kth()
+    print("OK. Search for kth statistics functions correctly!")
+    test_treesize()
+    print("OK. Tree's size doesn't explode!")
